@@ -1,8 +1,7 @@
-import './loginPage.css';
+import './registerPage.css';
 import React, { useState, useEffect, useRef } from 'react';
 
-
-function LoginPage() {
+function RegisterPage() {
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -49,6 +48,7 @@ function LoginPage() {
     return true;
   };
 
+  
   const validatePassword = () => {
     const password = formData.password;
     
@@ -184,13 +184,122 @@ function LoginPage() {
               </svg>
             </div>
           </div>
-          <h2>Welcome back</h2>
-          <p>Please sign in to continue</p>
+          <h2>Register</h2>
+          <p>Create your account</p>
         </div>
         
         {!showSuccess ? (
           <div ref={formRef}>
             <div className="login-form" onSubmit={handleSubmit}>
+              <div className="form-group">
+                <div className="input-group neu-input">
+                  <input 
+                    type="name" 
+                    id="name" 
+                    name="name" 
+                    value={formData.name}
+                    onChange={handleInputChange}
+                    onBlur={validateEmail}
+                    required 
+                    autoComplete="email" 
+                    placeholder=" " 
+                  />
+                  <label htmlFor="email">Names</label>
+                  <div className="input-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <circle cx="12" cy="7" r="4" />
+                        <path d="M5.5 21a7.5 7.5 0 0 1 13 0" />
+                    </svg>
+                  </div>
+                </div>
+                <span className={`error-message ${errors.email ? 'show' : ''}`} id="emailError">
+                  {errors.email}
+                </span>
+              </div>
+
+              <div className="form-group">
+                <div className="input-group neu-input">
+                  <input 
+                    type="lastName" 
+                    id="lastName" 
+                    name="lastName" 
+                    value={formData.lastName}
+                    onChange={handleInputChange}
+                    onBlur={validateEmail}
+                    required 
+                    autoComplete="email" 
+                    placeholder=" " 
+                  />
+                  <label htmlFor="email">Last Name</label>
+                  <div className="input-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <circle cx="12" cy="7" r="4" />
+                        <path d="M5.5 21a7.5 7.5 0 0 1 13 0" />
+                    </svg>
+                  </div>
+                </div>
+                <span className={`error-message ${errors.email ? 'show' : ''}`} id="emailError">
+                  {errors.email}
+                </span>
+              </div>
+
+              <div className="form-group">
+                <div className="input-group neu-input">
+                  <input 
+                    type="documentNumber" 
+                    id="documentNumber" 
+                    name="documentNumber" 
+                    value={formData.documentNumber}
+                    onChange={handleInputChange}
+                    onBlur={validateEmail}
+                    required 
+                    autoComplete="email" 
+                    placeholder=" " 
+                  />
+                  <label htmlFor="email">Document Number</label>
+                  <div className="input-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <rect x="2" y="4" width="20" height="16" rx="2" ry="2" />
+                      <circle cx="8" cy="12" r="3" />
+                      <path d="M5 17c0-2 1.5-3 3-3s3 1 3 3" />
+                      <line x1="14" y1="9" x2="20" y2="9" />
+                      <line x1="14" y1="13" x2="20" y2="13" />
+                      <line x1="14" y1="17" x2="20" y2="17" />
+                    </svg>
+                  </div>
+                </div>
+                <span className={`error-message ${errors.email ? 'show' : ''}`} id="emailError">
+                  {errors.email}
+                </span>
+              </div>
+
+              <div className="form-group">
+                <div className="input-group neu-input">
+                  <input 
+                    type="phoneNumber" 
+                    id="phoneNumber" 
+                    name="phoneNumber" 
+                    value={formData.phoneNumber}
+                    onChange={handleInputChange}
+                    onBlur={validateEmail}
+                    required 
+                    autoComplete="email" 
+                    placeholder=" " 
+                  />
+                  <label htmlFor="email">Phone Number</label>
+                  <div className="input-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <rect x="6" y="2" width="12" height="20" rx="2" ry="2" />
+                      <line x1="9" y1="6" x2="15" y2="6" />
+                      <line x1="10" y1="18" x2="14" y2="18" />
+                    </svg>
+                  </div>
+                </div>
+                <span className={`error-message ${errors.email ? 'show' : ''}`} id="emailError">
+                  {errors.email}
+                </span>
+              </div>
+
               <div className="form-group">
                 <div className="input-group neu-input">
                   <input 
@@ -215,7 +324,7 @@ function LoginPage() {
                 <span className={`error-message ${errors.email ? 'show' : ''}`} id="emailError">
                   {errors.email}
                 </span>
-              </div>
+              </div>  
 
               <div className="form-group">
                 <div className="input-group neu-input password-group">
@@ -257,6 +366,8 @@ function LoginPage() {
                   {errors.password}
                 </span>
               </div>
+
+              
 
               <div className="form-options">
                 <div className="remember-wrapper">
@@ -351,4 +462,4 @@ function LoginPage() {
   );
 }
 
-export default LoginPage;
+export default RegisterPage;
