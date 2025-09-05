@@ -184,7 +184,7 @@ function LoginPage() {
               </svg>
             </div>
           </div>
-          <h2>Welcome back</h2>
+          <h2>Login</h2>
           <p>Please sign in to continue</p>
         </div>
         
@@ -332,7 +332,7 @@ function LoginPage() {
             </div>
 
             <div className="signup-link">
-              <p>Don't have an account? <a href="#">Sign up</a></p>
+              <p>Don't have an account? <a href="/RegisterPage">Sign up</a></p>
             </div>
           </div>
         ) : (
