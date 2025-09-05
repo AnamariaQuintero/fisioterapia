@@ -6,6 +6,7 @@ import RegisterPage from './pages/registerPage/registerPage';
 function App() {
   return (
     <>
+      <LoginPage/>
       <RegisterPage/>
     </>
   );
