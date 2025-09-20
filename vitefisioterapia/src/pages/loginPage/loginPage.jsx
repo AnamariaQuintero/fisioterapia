@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import './loginPage.css';
 import React, { useState, useEffect, useRef } from 'react';
 
@@ -276,7 +277,7 @@ function LoginPage() {
                     Remember me
                   </label>
                 </div>
-                <a href="#" className="forgot-link">Forgot password?</a>
+                <Link to="/RecoverPassword" className="forgot-link">Forgot password?</Link>
               </div>
 
               <button 
@@ -332,7 +333,7 @@ function LoginPage() {
             </div>
 
             <div className="signup-link">
-              <p>Don't have an account? <a href="/RegisterPage">Sign up</a></p>
+              <p>Don't have an account? <Link to="/RegisterPage">Sign up</Link></p>
             </div>
           </div>
         ) : (

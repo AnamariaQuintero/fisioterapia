@@ -1,16 +1,17 @@
 import { Link } from 'react-router-dom';
-import './registerPage.css';
+import './recoverPassword.css';
 import React, { useState, useEffect, useRef } from 'react';
 
 
-function RegisterPage() {
+function RecoverPassword() {
   const [formData, setFormData] = useState({
     email: '',
     password: '',
-    remember: false
+    confirmPassword: '',
   });
   const [errors, setErrors] = useState({});
   const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
   
@@ -30,94 +31,9 @@ function RegisterPage() {
       clearError(name);
     }
   };
-  
-  //validacion de la funcion nombre
-  const validateNames = () => {
-    const names = formData.names;
-    const nameRegex = /^[^\d]+$/;
 
-    if (!names) {
-      showError('names', 'Name is required');
-      return false;
-    }
-
-    if (!nameRegex.test(names)) {
-      showError('names', 'El nombre no puede contener números');
-      return false;
-    }
-      
-    clearError('names');
-    return true;
-  };
-  
-  //validacion de la funcion apellido
-    const validateLastName = () => {
-    const lastName = formData.lastName;
-    const lastNameRegex = /^[^\d]+$/;
-
-    if (!lastName) {
-      showError('lastName', 'Lastname is required');
-      return false;
-    }
-
-    if (!lastNameRegex.test(lastName)) {
-      showError('lastName', 'El lastname no puede contener números');
-      return false;
-    }
-      
-    clearError('lastName');
-    return true;
-  };
-  //validacion de la funcion cc
-  const validateDocumentNumber = () => {
-    const documentNumber = formData.documentNumber;
-    const documentNumberRegex = /^[0-9]+$/;
-    
-    if (!documentNumber) {
-      showError('documentNumber', 'Document number is required');
-      return false;
-    }
-    
-    if (!documentNumberRegex.test(documentNumber)) {
-      showError('documentNumber', 'Document number no puede contener letras');
-      return false;
-    }
-
-    if (documentNumber.length != 10) {
-      showError('documentNumber', 'Document number debe tener 10 digitos');
-      return false;
-    }
-    
-    clearError('documentNumber');
-    return true;
-  };
-
-  //validacion de la funcion numero telefonico
-  const validatePhone = () => {
-    const phone = formData.phone;
-    const phoneRegex = /^[0-9]+$/;
-    
-    if (!phone) {
-      showError('phone', 'phone number is required');
-      return false;
-    }
-    
-    if (!phoneRegex.test(phone)) {
-      showError('phone', 'Phone number no puede contener letras');
-      return false;
-    }
-
-    if (phone.length != 10) {
-      showError('phone', 'phone number debe tener 10 digitos');
-      return false;
-    }
-    
-    clearError('phone');
-    return true;
-  };
-
-  // Validacion de la funcion email
-  const validateEmail = () => {
+   // Validation functions
+   const validateEmail = () => {
     const email = formData.email.trim();
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     
@@ -135,7 +51,6 @@ function RegisterPage() {
     return true;
   };
 
-  //validación de la funcion contraseña
   const validatePassword = () => {
     const password = formData.password;
     
@@ -150,6 +65,23 @@ function RegisterPage() {
     }
     
     clearError('password');
+    return true;
+  };
+
+  const validateConfirmPassword = () => {
+    const confirmPassword = formData.password;
+    
+    if (!confirmPassword) {
+      showError('password', 'Password is required');
+      return false;
+    }
+    
+    if (confirmPassword.length < 6) {
+      showError('password', 'Password must be at least 6 characters');
+      return false;
+    }
+    
+    clearError('confirmPassword');
     return true;
   };
 
@@ -171,11 +103,14 @@ function RegisterPage() {
     setShowPassword(!showPassword);
   };
 
+  const handleConfirmPasswordToggle = () => {
+    setShowConfirmPassword(!showConfirmPassword);
+  };
+
   // Form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
     
-    const isEmailValid = validateEmail();
     const isPasswordValid = validatePassword();
     
     if (!isEmailValid || !isPasswordValid) {
@@ -213,18 +148,6 @@ function RegisterPage() {
     }, 300);
   };
 
-  // Social login
-  const handleSocialLogin = async (provider) => {
-    console.log(`Initiating ${provider} login...`);
-    
-    try {
-      await new Promise(resolve => setTimeout(resolve, 1500));
-      console.log(`Redirecting to ${provider} authentication...`);
-      // window.location.href = `/auth/${provider.toLowerCase()}`;
-    } catch (error) {
-      console.error(`${provider} authentication failed: ${error.message}`);
-    }
-  };
 
   // Ambient light effect
   const updateAmbientLight = (e) => {
@@ -271,123 +194,13 @@ function RegisterPage() {
               </svg>
             </div>
           </div>
-          <h2>Register</h2>
-          <p>Create your account</p>
+          <h2>Forgot Password</h2>
+          <p>Cambie su ocntraseña</p>
         </div>
         
         {!showSuccess ? (
           <div ref={formRef}>
             <div className="login-form" onSubmit={handleSubmit}>
-              
-              <div className="form-group">
-                <div className="input-group neu-input">
-                  <input 
-                    type="names" 
-                    id="names" 
-                    name="names" 
-                    value={formData.names}
-                    onChange={handleInputChange}
-                    onBlur={validateNames}
-                    required 
-                    autoComplete="names" 
-                    placeholder=" " 
-                  />
-                  <label htmlFor="names">Your Names</label>
-                  <div className="input-icon">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                      <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
-                      <circle cx="12" cy="7" r="4"/>
-                    </svg>
-                  </div>
-                </div>
-                <span className={`error-message ${errors.names ? 'show' : ''}`} id="namesError">
-                  {errors.names}
-                </span>
-              </div>
-              
-              <div className="form-group">
-                <div className="input-group neu-input">
-                  <input 
-                    type="lastName" 
-                    id="lastName" 
-                    name="lastName" 
-                    value={formData.lastName}
-                    onChange={handleInputChange}
-                    onBlur={validateLastName}
-                    required 
-                    autoComplete="lastName" 
-                    placeholder=" " 
-                  />
-                  <label htmlFor="lastName">Your Lastname</label>
-                  <div className="input-icon">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                      <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
-                      <circle cx="12" cy="7" r="4"/>
-                    </svg>
-                  </div>
-                </div>
-                <span className={`error-message ${errors.lastName ? 'show' : ''}`} id="lastNameError">
-                  {errors.lastName}
-                </span>
-              </div>
-
-              <div className="form-group">
-                <div className="input-group neu-input">
-                  <input 
-                    type="documentNumber" 
-                    id="documentNumber" 
-                    name="documentNumber" 
-                    value={formData.documentNumber}
-                    onChange={handleInputChange}
-                    onBlur={validateDocumentNumber}
-                    required 
-                    autoComplete="documentNumber" 
-                    placeholder=" " 
-                  />
-                  <label htmlFor="documentNumber">Document Number</label>
-                  <div className="input-icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                      <rect x="2" y="4" width="20" height="16" rx="2" ry="2" />
-                      <circle cx="8" cy="12" r="3" />
-                      <path d="M5 17c0-2 1.5-3 3-3s3 1 3 3" />
-                      <line x1="14" y1="9" x2="20" y2="9" />
-                      <line x1="14" y1="13" x2="20" y2="13" />
-                      <line x1="14" y1="17" x2="20" y2="17" />
-                    </svg>
-                  </div>
-                </div>
-                <span className={`error-message ${errors.documentNumber ? 'show' : ''}`} id="documentNumberError">
-                  {errors.documentNumber}
-                </span>
-              </div>
-
-              <div className="form-group">
-                <div className="input-group neu-input">
-                  <input 
-                    type="phone" 
-                    id="phone" 
-                    name="phone" 
-                    value={formData.phone}
-                    onChange={handleInputChange}
-                    onBlur={validatePhone}
-                    required 
-                    autoComplete="phone" 
-                    placeholder=" " 
-                  />
-                  <label htmlFor="documentNumber">Phone Number</label>
-                  <div className="input-icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                      <rect x="6" y="2" width="12" height="20" rx="2" ry="2" />
-                      <line x1="9" y1="6" x2="15" y2="6" />
-                      <line x1="10" y1="18" x2="14" y2="18" />
-                    </svg>
-                  </div>
-                </div>
-                <span className={`error-message ${errors.phone ? 'show' : ''}`} id="phoneError">
-                  {errors.phone}
-                </span>
-              </div>
-
               <div className="form-group">
                 <div className="input-group neu-input">
                   <input 
@@ -455,6 +268,47 @@ function RegisterPage() {
                 </span>
               </div>
 
+              <div className="form-group">
+                <div className="input-group neu-input password-group">
+                  <input 
+                    type={showConfirmPassword ? "text" : "password"} 
+                    id="confirmPassword" 
+                    name="confirmPassword" 
+                    value={formData.confirmPassword}
+                    onChange={handleInputChange}
+                    onBlur={validateConfirmPassword}
+                    required 
+                    autoComplete="current-password" 
+                    placeholder=" " 
+                  />
+                  <label htmlFor="password">Confirm Password</label>
+                  <div className="input-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                      <path d="M7 11V7a5 5 0 0110 0v4"/>
+                    </svg>
+                  </div>
+                  <button 
+                    type="button" 
+                    className={`password-toggle neu-toggle ${showConfirmPassword ? 'show-password' : ''}`}
+                    onClick={handleConfirmPasswordToggle}
+                    aria-label="Toggle password visibility"
+                  >
+                    <svg className="eye-open" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                      <circle cx="12" cy="12" r="3"/>
+                    </svg>
+                    <svg className="eye-closed" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/>
+                      <line x1="1" y1="1" x2="23" y2="23"/>
+                    </svg>
+                  </button>
+                </div>
+                <span className={`error-message ${errors.password ? 'show' : ''}`} id="passwordError">
+                  {errors.password}
+                </span>
+              </div>
+
               <button 
                 type="submit" 
                 className={`neu-button login-btn ${isLoading ? 'loading' : ''}`}
@@ -468,14 +322,8 @@ function RegisterPage() {
               </button>
             </div>
 
-            <div className="divider">
-              <div className="divider-line"></div>
-              <span>or continue with</span>
-              <div className="divider-line"></div>
-            </div>
-
             <div className="signup-link">
-              <p>Do you already have an account?<Link to="/"> Log In</Link></p>
+              <p>Don't have an account? <Link to="/">Sign up</Link></p>
             </div>
           </div>
         ) : (
@@ -494,4 +342,4 @@ function RegisterPage() {
   );
 }
 
-export default RegisterPage;
+export default RecoverPassword;
