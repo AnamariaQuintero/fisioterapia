@@ -3,7 +3,8 @@ import './App.css'
 import LoginPage from './pages/loginPage/loginPage'
 import RegisterPage from './pages/registerPage/registerPage'
 import RecoverPassword from './pages/recoverPasswordPage/recoverPassword'
-// import DashboardPage from './pages/dashboardPage/dashboardPage'
+import ForgotPassword from './pages/recoverPasswordPage/forgotPassword'
+import DashboardPage from './pages/dashboardPage/dashboardPage'
 
 function App() {
 
@@ -15,6 +16,7 @@ function App() {
           <Route path='/' element={<LoginPage/>}></Route>
           <Route path='/RegisterPage' element={<RegisterPage/>}></Route>
           <Route path='/RecoverPassword' element={<RecoverPassword/>}></Route>
+          <Route path='/ForgotPassword' element={<ForgotPassword/>}></Route>
           {/* <Route path='/DashboardPage' element={<DashboardPage/>}></Route> */}
         </Routes>
       </BrowserRouter>

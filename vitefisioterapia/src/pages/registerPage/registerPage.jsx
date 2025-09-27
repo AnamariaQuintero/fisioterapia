@@ -1,14 +1,20 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import './registerPage.css';
 import React, { useState, useEffect, useRef } from 'react';
-
+import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { Await } from 'react-router-dom';
+import { setDoc, doc } from 'firebase/firestore';
+import Swal from 'sweetalert2';
+import { auth, db } from '../../firebase';
+import { FaEye, FaEyeSlash} from 'react-icons/fa';
 
 function RegisterPage() {
+  const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
-    email: '',
-    password: '',
-    remember: false
+    names: '', lastName: '', documentNumber: '', phone: '', email: '', password: '',
   });
+
   const [errors, setErrors] = useState({});
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -19,16 +25,10 @@ function RegisterPage() {
 
   // Handle input changes
   const handleInputChange = (e) => {
-    const { name, value, type, checked } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: type === 'checkbox' ? checked : value
-    }));
-    
-    // Clear error when user starts typing
-    if (errors[name]) {
-      clearError(name);
-    }
+    setFormData({
+      ...formData, 
+      [e.target.name]: e.target.value 
+    });
   };
   
   //validacion de la funcion nombre
@@ -175,23 +175,38 @@ function RegisterPage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     
-    const isEmailValid = validateEmail();
-    const isPasswordValid = validatePassword();
-    
-    if (!isEmailValid || !isPasswordValid) {
-      return;
+    const {
+      names, lastName, documentNumber, phone, email, password
+    } = formData;
+
+    // Validaciones 
+    if(
+      !names || !lastName || !documentNumber || !phone || !email || !password
+    ){
+      return Swal.fire("Todos los campos son obligarotios")
     }
-    
-    setIsLoading(true);
-    
-    try {
-      // Simulate soft authentication
-      await new Promise(resolve => setTimeout(resolve, 2000));
-      showNeumorphicSuccess();
-    } catch (error) {
-      showError('password', 'Login failed. Please try again.');
-    } finally {
-      setIsLoading(false);
+    try{
+      const emaillower = email.toLocaleLowerCase();
+
+      // Crea usuario para el servivio de autenticación de firebase
+      const userMethod = await createUserWithEmailAndPassword(auth, emaillower, password);
+      const user = userMethod.user;
+
+      // Guardar datos en firestore"
+      await setDoc (doc(db, "usuario", user.uid), {
+        uid: user.uid,
+        names, lastName, documentNumber, phone, email, password, estado: "pendiente",
+        rol: "visitante", creado: new Date(), metodo: "password"
+      });
+
+      Swal.fire("Registrado", "Usuario creado con éxito", "exito");
+      navigate("/")
+    } catch (error){
+      console.error("Error de registro: ", error);
+
+      if(error.code === "auth/email-alrwady-in-use"){
+        Swal.fire("Correo en uso","Debe ingresar otro correo", "error");
+      }
     }
   };
 
@@ -437,8 +452,9 @@ function RegisterPage() {
                   <button 
                     type="button" 
                     className={`password-toggle neu-toggle ${showPassword ? 'show-password' : ''}`}
-                    onClick={handlePasswordToggle}
+                    onClick={() => setShowPassword(!showPassword)}
                     aria-label="Toggle password visibility"
+                    onChange={handlePasswordToggle}
                   >
                     <svg className="eye-open" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                       <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
