@@ -17,7 +17,7 @@ function App() {
           <Route path='/RegisterPage' element={<RegisterPage/>}></Route>
           <Route path='/RecoverPassword' element={<RecoverPassword/>}></Route>
           <Route path='/ForgotPassword' element={<ForgotPassword/>}></Route>
-          {/* <Route path='/DashboardPage' element={<DashboardPage/>}></Route> */}
+          <Route path='/DashboardPage' element={<DashboardPage/>}></Route>
         </Routes>
       </BrowserRouter>
     </>
