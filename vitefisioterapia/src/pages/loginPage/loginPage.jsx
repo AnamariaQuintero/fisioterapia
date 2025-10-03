@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import './loginPage.css';
 import React, { useState, useEffect, useRef } from 'react';
 
@@ -88,22 +88,28 @@ function LoginPage() {
   // Form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     const isEmailValid = validateEmail();
     const isPasswordValid = validatePassword();
-    
+
     if (!isEmailValid || !isPasswordValid) {
       return;
     }
-    
+
     setIsLoading(true);
-    
+
     try {
-      // Simulate soft authentication
+      // Simulamos autenticación
       await new Promise(resolve => setTimeout(resolve, 2000));
       showNeumorphicSuccess();
+
+      //Redirigir después de login exitoso
+      setTimeout(() => {
+        navigate("/DashboardPage");
+      }, 2500);
+      
     } catch (error) {
-      showError('password', 'Login failed. Please try again.');
+      showError("password", "Login failed. Please try again.");
     } finally {
       setIsLoading(false);
     }
@@ -286,11 +292,19 @@ function LoginPage() {
                 disabled={isLoading}
                 onClick={handleSubmit}
               >
-                <span className="btn-text">Sign In</span>
-                <div className="btn-loader">
-                  <div className="neu-spinner"></div>
-                </div>
+                <span className="btn-text"><Link to="/DashboardPage" className="forgot-link">Sing In</Link></span>
+                  <div className="btn-loader">
+                    <div className="neu-spinner"></div>
+                  </div>
               </button>
+
+              <button className='btn btn-light border login-btn'>
+                <span className="btn-text"><Link to="/DashboardPage" className="forgot-link">Sing In</Link></span>
+                  <div className="btn-loader">
+                    <div className="neu-spinner"></div>
+                  </div>
+              </button>
+              
             </div>
 
             <div className="divider">
