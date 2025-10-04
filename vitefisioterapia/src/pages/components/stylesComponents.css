@@ -1,0 +1,337 @@
+/* ========================================
+   FISIOTERAPIA - NAVBAR & FOOTER STYLES
+   Archivo: navbarFooterStyles.css
+   Descripción: Estilos unificados para Navbar y Footer
+   ======================================== */
+
+/* ========================================
+   NAVBAR PRINCIPAL
+   ======================================== */
+
+   .navbar-custom {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+    height: 75px;
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  
+  /* ========================================
+     HAMBURGER MENU
+     ======================================== */
+  
+  .hamburger-menu {
+    cursor: pointer;
+    color: #fff;
+    transition: all 0.3s ease;
+    padding: 8px 12px;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.1);
+  }
+  
+  .hamburger-menu:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: scale(1.05);
+  }
+  
+  /* ========================================
+     DROPDOWN MENU
+     ======================================== */
+  
+  .dropdown-menu-custom {
+    border-radius: 12px;
+    border: none;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+    padding: 8px;
+    margin-top: 8px;
+  }
+  
+  .dropdown-item-custom {
+    border-radius: 8px;
+    padding: 10px 16px;
+    transition: all 0.2s ease;
+    font-weight: 500;
+  }
+  
+  .dropdown-item-custom:hover {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white !important;
+    transform: translateX(5px);
+  }
+  
+  .dropdown-item-custom a {
+    text-decoration: none;
+    color: inherit;
+  }
+  
+  /* ========================================
+     BRAND (LOGO + TITULO)
+     ======================================== */
+  
+  .brand-custom {
+    font-weight: 700;
+    font-size: 1.5rem;
+    letter-spacing: 0.5px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+  }
+  
+  .brand-custom:hover {
+    transform: scale(1.02);
+  }
+  
+  .brand-logo {
+    filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.2));
+    transition: all 0.3s ease;
+  }
+  
+  .brand-custom:hover .brand-logo {
+    transform: rotate(10deg);
+  }
+  
+  /* ========================================
+     BUSCADOR
+     ======================================== */
+  
+  .search-input-custom {
+    border-radius: 25px 0 0 25px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.95);
+    padding: 12px 20px;
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+  }
+  
+  .search-input-custom:focus {
+    border-color: rgba(255, 255, 255, 0.8);
+    box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.1);
+    background: white;
+  }
+  
+  .search-button-custom {
+    border-radius: 0 25px 25px 0;
+    background: white;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-left: none;
+    padding: 12px 20px;
+    transition: all 0.3s ease;
+  }
+  
+  .search-button-custom:hover {
+    background: #f8f9fa;
+    transform: scale(1.02);
+  }
+  
+  /* ========================================
+     ICONOS DE NAVEGACIÓN
+     ======================================== */
+  
+  .nav-icon-custom {
+    color: white;
+    transition: all 0.3s ease;
+    padding: 8px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .nav-icon-custom:hover {
+    background: rgba(255, 255, 255, 0.25);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+  
+  /* ========================================
+     AVATAR DE USUARIO
+     ======================================== */
+  
+  .avatar-custom {
+    border: 3px solid rgba(255, 255, 255, 0.3) !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+    cursor: pointer;
+  }
+  
+  .avatar-custom:hover {
+    transform: scale(1.1);
+    border-color: white !important;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+  }
+  
+  /* ========================================
+     FOOTER PRINCIPAL
+     ======================================== */
+  
+  .footer-custom {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: auto;
+    min-height: 180px;
+    backdrop-filter: blur(10px);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.15);
+    z-index: 1000;
+  }
+  
+  /* ========================================
+     TÍTULO DEL FOOTER
+     ======================================== */
+  
+  .footer-title {
+    letter-spacing: 3px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    font-size: 1.8rem;
+    transition: all 0.3s ease;
+  }
+  
+  .footer-title:hover {
+    transform: scale(1.05);
+    letter-spacing: 4px;
+  }
+  
+  /* ========================================
+     DIVISOR Y AÑO
+     ======================================== */
+  
+  .footer-divider {
+    width: 50px;
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    opacity: 0.8;
+    margin: 0;
+  }
+  
+  .footer-year {
+    font-weight: 600;
+    font-size: 0.95rem;
+    opacity: 0.9;
+    letter-spacing: 2px;
+  }
+  
+  /* ========================================
+     ICONOS DE REDES SOCIALES
+     ======================================== */
+  
+  .footer-social-icon {
+    color: white;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    margin: 0 8px;
+    text-decoration: none;
+  }
+  
+  .footer-social-icon:hover {
+    background: rgba(255, 255, 255, 0.25);
+    color: white;
+    transform: translateY(-5px) scale(1.1);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+  }
+  
+  /* Animaciones específicas por red social */
+  .footer-social-icon:nth-child(1):hover {
+    background: rgba(59, 89, 152, 0.8); /* Facebook */
+  }
+  
+  .footer-social-icon:nth-child(2):hover {
+    background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); /* Instagram */
+  }
+  
+  .footer-social-icon:nth-child(3):hover {
+    background: rgba(255, 0, 0, 0.8); /* YouTube */
+  }
+  
+  .footer-social-icon:nth-child(4):hover {
+    background: rgba(189, 8, 28, 0.8); /* Pinterest */
+  }
+  
+  .footer-social-icon:nth-child(5):hover {
+    background: rgba(0, 119, 181, 0.8); /* LinkedIn */
+  }
+  
+  /* ========================================
+     COPYRIGHT
+     ======================================== */
+  
+  .footer-copyright {
+    font-size: 0.85rem;
+    opacity: 0.85;
+    letter-spacing: 0.5px;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+  }
+  
+  /* ========================================
+     RESPONSIVE DESIGN
+     ======================================== */
+  
+  @media (max-width: 768px) {
+    .search-input-group {
+      max-width: 250px !important;
+    }
+    
+    .brand-custom {
+      font-size: 1.2rem;
+    }
+  
+    .footer-custom {
+      min-height: 160px;
+      padding: 20px 0;
+    }
+  
+    .footer-title {
+      font-size: 1.5rem;
+      letter-spacing: 2px;
+    }
+  
+    .footer-social-icon {
+      width: 40px;
+      height: 40px;
+      margin: 0 5px;
+    }
+  
+    .footer-divider {
+      width: 40px;
+    }
+  }
+  
+  @media (max-width: 576px) {
+    .navbar-custom {
+      height: 65px;
+    }
+    
+    .brand-custom {
+      font-size: 1rem;
+    }
+    
+    .search-input-group {
+      display: none;
+    }
+  
+    .footer-custom {
+      min-height: 140px;
+      padding: 15px 0;
+    }
+  
+    .footer-title {
+      font-size: 1.3rem;
+    }
+  
+    .footer-social-icon {
+      width: 38px;
+      height: 38px;
+    }
+  
+    .footer-copyright {
+      font-size: 0.75rem;
+    }
+  }

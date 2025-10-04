@@ -283,10 +283,10 @@ function LoginPage() {
                     Remember me
                   </label>
                 </div>
-                <Link to="/RecoverPassword" className="forgot-link">Forgot password?</Link>
+                <Link to="/ForgotPassword" className="forgot-link">Forgot password?</Link>
               </div>
 
-              <button 
+              {/* <button 
                 type="submit" 
                 className={`neu-button login-btn ${isLoading ? 'loading' : ''}`}
                 disabled={isLoading}
@@ -296,7 +296,7 @@ function LoginPage() {
                   <div className="btn-loader">
                     <div className="neu-spinner"></div>
                   </div>
-              </button>
+              </button> */}
 
               <button className='btn btn-light border login-btn'>
                 <span className="btn-text"><Link to="/DashboardPage" className="forgot-link">Sing In</Link></span>
