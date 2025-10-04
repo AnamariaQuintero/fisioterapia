@@ -180,7 +180,7 @@ function ForgotPassword() {
               </svg>
             </div>
           </div>
-          <h2>Forgot Password</h2>
+          <h2>Reset Password</h2>
           <p>Cambie su ocntraseña</p>
         </div>
         

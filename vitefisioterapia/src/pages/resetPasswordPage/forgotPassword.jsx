@@ -179,7 +179,7 @@ function RecoverPassword() {
                   {errors.email}
                 </span>
 
-                <Link to="/ForgotPassword" className="forgot-link">Ir al cambio de contraseña</Link>
+                <Link to="/ResetPassword" className="forgot-link">Ir al cambio de contraseña</Link>
 
               </div>
 

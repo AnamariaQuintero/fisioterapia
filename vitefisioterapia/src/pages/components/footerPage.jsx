@@ -8,57 +8,52 @@ import {
   FaPinterestP,
   FaLinkedinIn,
 } from "react-icons/fa";
+import "./stylesComponents.css";
 
 function FisioFooter() {
   return (
-    <footer
-      className="text-white text-center py-4"
-      style={{
-        backgroundColor: "#0d6efd", 
-        position: "fixed", 
-        bottom: 0,
-        left: 0,
-        width: "100%", 
-        height: "20%"
-      }}
-    >
+    <footer className="footer-custom text-white text-center py-4">
       <Container>
         {/* Logo/Título */}
-        <h4 className="fw-bold mb-2">TARRAGO</h4>
         <div className="d-flex justify-content-center align-items-center mb-3">
-          <hr style={{ width: "50px", border: "1px solid white" }} />
-          <span className="mx-2 small">1940</span>
-          <hr style={{ width: "50px", border: "1px solid white" }} />
+          <hr className="footer-divider" />
+          <span className="mx-2 footer-year">Fisioterapia</span>
+          <hr className="footer-divider" />
         </div>
       
         {/* Íconos redes sociales */}
-        <Row className="justify-content-center">
+        <Row className="justify-content-center mb-3">
           <Col xs="auto">
-            <a href="#" className="text-white mx-2">
-              <FaFacebookF size={28} />
+            <a href="#" className="footer-social-icon">
+              <FaFacebookF size={20} />
             </a>
           </Col>
           <Col xs="auto">
-            <a href="#" className="text-white mx-2">
-              <FaInstagram size={28} />
+            <a href="#" className="footer-social-icon">
+              <FaInstagram size={20} />
             </a>
           </Col>
           <Col xs="auto">
-            <a href="#" className="text-white mx-2">
-              <FaYoutube size={28} />
+            <a href="#" className="footer-social-icon">
+              <FaYoutube size={20} />
             </a>
           </Col>
           <Col xs="auto">
-            <a href="#" className="text-white mx-2">
-              <FaPinterestP size={28} />
+            <a href="#" className="footer-social-icon">
+              <FaPinterestP size={20} />
             </a>
           </Col>
           <Col xs="auto">
-            <a href="#" className="text-white mx-2">
-              <FaLinkedinIn size={28} />
+            <a href="#" className="footer-social-icon">
+              <FaLinkedinIn size={20} />
             </a>
           </Col>
         </Row>
+
+        {/* Copyright */}
+        <p className="footer-copyright">
+          © 2025 Fisioterapia TARRAGO. Todos los derechos reservados.
+        </p>
       </Container>
     </footer>
   );
