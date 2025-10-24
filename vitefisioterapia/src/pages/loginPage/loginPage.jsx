@@ -1,11 +1,11 @@
-// src/pages/LoginPage.jsx
 import React, { useState, useEffect, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./loginPage.css";
-import { signInWithEmailAndPassword } from "firebase/auth";
+import { signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 import { addDoc, collection } from "firebase/firestore";
 import Swal from "sweetalert2";
-import { auth, db } from "../../firebase";
+import { auth, db, GoogleProvider } from "../../firebase";
+
 
 function LoginPage() {
   const navigate = useNavigate();
@@ -189,21 +189,45 @@ function LoginPage() {
     }, 300);
   };
 
-  // --- Social (simulación/UX) ---
   const handleSocialLogin = async (provider, button) => {
     animateSoftPress(button);
     button.style.pointerEvents = "none";
     button.style.opacity = "0.7";
+  
     try {
-      await new Promise((r) => setTimeout(r, 1200));
-      Swal.fire("Info", `${provider} login not configured here.`, "info");
+      await new Promise((r) => setTimeout(r, 600));
+  
+      if (provider === "Google") {
+        const result = await signInWithPopup(auth, GoogleProvider);
+        const user = result.user;
+  
+        Swal.fire({
+          icon: "success",
+          title: "Inicio de sesión exitoso",
+          text: `Bienvenido, ${user.displayName}`,
+          timer: 1500,
+          showConfirmButton: false,
+        });
+  
+        setTimeout(() => {
+          navigate("/DashboardPage");
+        }, 1500);
+      } else {
+        Swal.fire("Info", `${provider} login not configured yet.`, "info");
+      }
     } catch (err) {
       console.error(err);
+      Swal.fire({
+        icon: "error",
+        title: "Error al iniciar sesión",
+        text: err.message,
+      });
     } finally {
       button.style.pointerEvents = "auto";
       button.style.opacity = "1";
     }
   };
+  
 
   // --- Effects: ambient light + keyframes injection ---
   useEffect(() => {
@@ -384,11 +408,6 @@ function LoginPage() {
                 </svg>
               </button>
 
-              <button type="button" className="social-btn neu-social" onClick={(e) => handleSocialLogin("Twitter", e.currentTarget)}>
-                <svg viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184A4.92 4.92 0 0016.616 3c-2.73 0-4.946 2.287-4.946 5.11 0 .401.045.79.133 1.166C7.728 9.997 4.1 7.828 1.67 4.8c-.44.76-.69 1.65-.69 2.59 0 1.79.9 3.37 2.27 4.3a4.86 4.86 0 01-2.24-.62v.06c0 2.5 1.76 4.58 4.1 5.06-.5.13-1.03.2-1.58.2-.38 0-.75-.04-1.12-.11.75 2.3 2.92 3.98 5.5 4.03A9.87 9.87 0 010 19.54 14 14 0 007.55 21c9.05 0 13.997-7.5 13.997-13.99 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z" />
-                </svg>
-              </button>
             </div>
 
             <div className="signup-link">
