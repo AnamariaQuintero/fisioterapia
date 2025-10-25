@@ -4,7 +4,7 @@ import "./loginPage.css";
 import { signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 import { addDoc, collection } from "firebase/firestore";
 import Swal from "sweetalert2";
-import { auth, db, GoogleProvider } from "../../firebase";
+import { auth, db, GoogleProvider, GithubProvider} from "../../firebase";
 
 
 function LoginPage() {
@@ -190,44 +190,64 @@ function LoginPage() {
   };
 
   const handleSocialLogin = async (provider, button) => {
-    animateSoftPress(button);
-    button.style.pointerEvents = "none";
-    button.style.opacity = "0.7";
-  
-    try {
-      await new Promise((r) => setTimeout(r, 600));
-  
-      if (provider === "Google") {
-        const result = await signInWithPopup(auth, GoogleProvider);
-        const user = result.user;
-  
-        Swal.fire({
-          icon: "success",
-          title: "Inicio de sesión exitoso",
-          text: `Bienvenido, ${user.displayName}`,
-          timer: 1500,
-          showConfirmButton: false,
-        });
-  
-        setTimeout(() => {
-          navigate("/DashboardPage");
-        }, 1500);
-      } else {
-        Swal.fire("Info", `${provider} login not configured yet.`, "info");
-      }
-    } catch (err) {
-      console.error(err);
-      Swal.fire({
-        icon: "error",
-        title: "Error al iniciar sesión",
-        text: err.message,
-      });
-    } finally {
-      button.style.pointerEvents = "auto";
-      button.style.opacity = "1";
+  animateSoftPress(button);
+  button.style.pointerEvents = "none";
+  button.style.opacity = "0.7";
+
+  try {
+    await new Promise((r) => setTimeout(r, 600));
+
+    let result;
+
+    if (provider === "Google") {
+      result = await signInWithPopup(auth, GoogleProvider);
+    } else if (provider === "GitHub") {
+      result = await signInWithPopup(auth, GithubProvider);
+    } else {
+      Swal.fire("Info", `${provider} login not configured yet.`, "info");
+      return;
     }
-  };
-  
+
+    const user = result.user;
+
+    // 🔥 Guardar login en Firestore (opcional, si lo estás haciendo)
+    try {
+      const now = new Date();
+      await addDoc(collection(db, "login_history"), {
+        uid: user.uid,
+        email: user.email,
+        displayName: user.displayName,
+        provider: provider,
+        date: now.toLocaleDateString("es-CO"),
+        time: now.toLocaleTimeString("es-CO"),
+      });
+    } catch (dbError) {
+      console.warn("No se pudo registrar el login:", dbError.message);
+    }
+
+    Swal.fire({
+      icon: "success",
+      title: "Inicio de sesión exitoso",
+      text: `Bienvenido, ${user.displayName || "Usuario"}`,
+      timer: 1500,
+      showConfirmButton: false,
+    });
+
+    setTimeout(() => {
+      navigate("/DashboardPage");
+    }, 1500);
+  } catch (err) {
+    console.error(err);
+    Swal.fire({
+      icon: "error",
+      title: "Error al iniciar sesión",
+      text: err.message,
+    });
+  } finally {
+    button.style.pointerEvents = "auto";
+    button.style.opacity = "1";
+  }
+};
 
   // --- Effects: ambient light + keyframes injection ---
   useEffect(() => {
