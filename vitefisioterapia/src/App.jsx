@@ -10,7 +10,8 @@ import CrearUsuario from './pages/usuarios/crearUsuario'
 import EditarUsuario from './pages/usuarios/editarUsuario'
 import CitaPage from './pages/citas/citaview'
 import CreateCita from './pages/citas/citacreate'
-
+import Login from './pages/vinculación/vinculacion'
+import ListaAuditoria from './pages/components/listAuditoria'
 
 function App() {
 
@@ -29,6 +30,8 @@ function App() {
           <Route path='/EditarUsuario/:id' element={<EditarUsuario/>}></Route>
           <Route path='/CitaPage' element={<CitaPage/>}></Route>
           <Route path='/CreateCita' element={<CreateCita/>}></Route>
+          <Route path='/Login' element={<Login/>}></Route>
+          <Route path='/ListaAuditoria' element={<ListaAuditoria/>}></Route>
         </Routes>
       </BrowserRouter>
     </>

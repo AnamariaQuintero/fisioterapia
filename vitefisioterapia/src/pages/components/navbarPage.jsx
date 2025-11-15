@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import {
   Navbar,
@@ -11,10 +11,104 @@ import {
   Image,
   Button,
 } from "react-bootstrap";
-import { FaBars, FaSearch, FaQuestionCircle, FaCog, FaTh } from "react-icons/fa";
+import {
+  FaBars,
+  FaSearch,
+  FaQuestionCircle,
+  FaCog,
+  FaTh,
+  FaSignOutAlt,
+} from "react-icons/fa";
+import Swal from "sweetalert2";
+
 import "./stylesComponents.css";
 
+// 🔹 Firebase
+import { getAuth, signOut } from "firebase/auth";
+import { db } from "../../firebase";
+import { doc, updateDoc } from "firebase/firestore";
+
+// 🔹 Helpers para formatear hora
+const pad = (v) => String(v).padStart(2, "0");
+
+const formatHora = (date = new Date()) => {
+  const hh = pad(date.getHours());
+  const mm = pad(date.getMinutes());
+  const ss = pad(date.getSeconds());
+  return `${hh}:${mm}:${ss}`;
+};
+
 function FisioNavbar() {
+  const navigate = useNavigate();
+  const auth = getAuth();
+
+  const handleLogout = async () => {
+    const result = await Swal.fire({
+      title: "¿Cerrar sesión?",
+      text: "Tu sesión actual se cerrará.",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Sí, salir",
+      cancelButtonText: "Cancelar",
+      background: "#f9f9f9",
+    });
+
+    if (!result.isConfirmed) return;
+
+    try {
+      // 🔸 Recuperar datos guardados durante el login
+      const loginDocId = localStorage.getItem("currentLoginHistoryId");
+      const sessionStartMs = Number(localStorage.getItem("sessionStartMs"));
+
+      if (loginDocId && !Number.isNaN(sessionStartMs)) {
+        const now = new Date();
+
+        // 🔹 Datos de logout
+        const logoutAtMs = now.getTime();
+        const logoutTime = formatHora(now);
+
+        // 🔹 Diferencia en minutos
+        const diffMs = logoutAtMs - sessionStartMs;
+        const sessionDurationMinutes =
+          Math.round((diffMs / 60000) * 100) / 100; // 2 decimales
+
+        const historyRef = doc(db, "login_history", loginDocId);
+
+        await updateDoc(historyRef, {
+          logoutTime,                 // "HH:mm:ss"
+          logoutAtMs,                 // timestamp de salida
+          sessionDurationMinutes,     // duración en minutos
+        });
+
+        // 🔹 Limpiar storage
+        localStorage.removeItem("currentLoginHistoryId");
+        localStorage.removeItem("sessionStartMs");
+      }
+
+      // Cerrar sesión en Firebase
+      await signOut(auth);
+
+      Swal.fire({
+        icon: "success",
+        title: "Sesión cerrada",
+        text: "Has cerrado sesión correctamente.",
+        timer: 1800,
+        showConfirmButton: false,
+      });
+
+      navigate("/"); // Redirige al login
+    } catch (error) {
+      console.error("Error al cerrar sesión:", error);
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "No se pudo cerrar sesión. Intenta nuevamente.",
+      });
+    }
+  };
+
   return (
     <Navbar
       variant="dark"
@@ -36,6 +130,9 @@ function FisioNavbar() {
             <Dropdown.Item className="dropdown-item-custom">
               <Link to="/CitaPage" className="forgot-link">Cita</Link>
             </Dropdown.Item>
+            <Dropdown.Item className="dropdown-item-custom">
+              <Link to="/ListaAuditoria" className="forgot-link">Auditoria</Link>
+            </Dropdown.Item>
           </Dropdown.Menu>
         </Dropdown>
 
@@ -55,7 +152,10 @@ function FisioNavbar() {
         </Navbar.Brand>
 
         {/* Buscador */}
-        <InputGroup className="mx-3 search-input-group" style={{ maxWidth: "500px", flex: 1 }}>
+        <InputGroup
+          className="mx-3 search-input-group"
+          style={{ maxWidth: "500px", flex: 1 }}
+        >
           <FormControl 
             placeholder="Buscar paciente, cita, usuario..." 
             className="search-input-custom"
@@ -83,6 +183,15 @@ function FisioNavbar() {
             height="42"
             className="ms-2 avatar-custom"
           />
+
+          {/* 🔹 Botón de Logout */}
+          <Nav.Link
+            onClick={handleLogout}
+            className="nav-logout-icon"
+            title="Cerrar sesión"
+          >
+            <FaSignOutAlt size={20} />
+          </Nav.Link>
         </Nav>
       </Container>
     </Navbar>

@@ -1,0 +1,149 @@
+/* Fondo centrado */
+.auth-wrapper {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #eef1f5;
+    padding: 20px;
+  }
+  
+  /* Tarjeta */
+  .auth-card {
+    width: 350px;
+    background: #ffffff;
+    padding: 28px;
+    border-radius: 18px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    transition: 0.25s ease-in-out;
+  }
+  
+  .auth-card:hover {
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.15);
+  }
+  
+  /* Títulos */
+  .auth-title {
+    text-align: center;
+    margin-bottom: 18px;
+    color: #2d2d2d;
+    font-size: 24px;
+    font-weight: 600;
+  }
+  
+  .auth-subtitle {
+    text-align: center;
+    margin-bottom: 10px;
+    font-size: 14px;
+    color: #555;
+  }
+  
+  /* Inputs */
+  .auth-input {
+    width: 100%;
+    padding: 11px;
+    margin-bottom: 14px;
+    border-radius: 8px;
+    border: 1px solid #c9c9c9;
+    outline: none;
+    transition: 0.2s;
+  }
+  
+  .auth-input:focus {
+    border-color: #5a54f7;
+    box-shadow: 0 0 4px rgba(90, 84, 247, 0.3);
+  }
+  
+  /* Botones */
+  .auth-btn {
+    width: 100%;
+    padding: 12px;
+    border-radius: 8px;
+    border: none;
+    font-size: 15px;
+    cursor: pointer;
+    margin-bottom: 12px;
+    transition: 0.2s ease;
+  }
+  
+  .auth-btn:hover {
+    transform: translateY(-2px);
+  }
+  
+  /* Variantes de botones */
+  .btn-main {
+    background: #5a54f7;
+    color: white;
+  }
+  
+  .btn-main:hover {
+    background: #4944d6;
+  }
+  
+  .btn-alt {
+    background: #828282;
+    color: white;
+  }
+  
+  .btn-alt:hover {
+    background: #6e6e6e;
+  }
+  
+  .btn-google {
+    background: #e34133;
+    color: white;
+  }
+  
+  .btn-google:hover {
+    background: #c6281f;
+  }
+  
+  .btn-github {
+    background: #1d1d1d;
+    color: white;
+  }
+  
+  .btn-github:hover {
+    background: #000;
+  }
+  
+  /* Separador */
+  .auth-divider {
+    margin: 18px 0;
+    height: 1px;
+    background: #e3e3e3;
+    border: none;
+  }
+  
+  .vincular-wrapper {
+    margin-top: 25px;
+    text-align: center;
+    padding: 12px 0;
+    background: #e8ecf5;
+    border-radius: 12px;
+    box-shadow: 
+        6px 6px 12px #c5c9d3,
+        -6px -6px 12px #ffffff;
+    transition: 0.3s ease;
+  }
+  
+  .vincular-wrapper:hover {
+    box-shadow: 
+        4px 4px 10px #c5c9d3,
+        -4px -4px 10px #ffffff;
+    transform: translateY(-2px);
+  }
+  
+  .vincular-link {
+    color: #5c5e7f;
+    font-size: 15px;
+    font-weight: 500;
+    text-decoration: none;
+    letter-spacing: 0.3px;
+  }
+  
+  .vincular-link:hover {
+    color: #3d3f63;
+  }
+  
