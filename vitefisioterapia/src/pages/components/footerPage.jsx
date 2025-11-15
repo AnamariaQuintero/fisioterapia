@@ -12,17 +12,17 @@ import "./stylesComponents.css";
 
 function FisioFooter() {
   return (
-    <footer className="footer-custom text-white text-center py-4">
+    <footer className="footer-custom text-white text-center py-2 mt-4">
       <Container>
         {/* Logo/Título */}
-        <div className="d-flex justify-content-center align-items-center mb-3">
+        <div className="d-flex justify-content-center align-items-center mb-1">
           <hr className="footer-divider" />
           <span className="mx-2 footer-year">Fisioterapia</span>
           <hr className="footer-divider" />
         </div>
       
         {/* Íconos redes sociales */}
-        <Row className="justify-content-center mb-3">
+        <Row className="justify-content-center mb-1">
           <Col xs="auto">
             <a href="#" className="footer-social-icon">
               <FaFacebookF size={20} />
@@ -52,7 +52,7 @@ function FisioFooter() {
 
         {/* Copyright */}
         <p className="footer-copyright">
-          © 2025 Fisioterapia TARRAGO. Todos los derechos reservados.
+          © 2025 Fisioterapia. Todos los derechos reservados.
         </p>
       </Container>
     </footer>

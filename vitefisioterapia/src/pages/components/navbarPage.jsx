@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import {
   Navbar,
@@ -11,10 +11,57 @@ import {
   Image,
   Button,
 } from "react-bootstrap";
-import { FaBars, FaSearch, FaQuestionCircle, FaCog, FaTh } from "react-icons/fa";
+import {
+  FaBars,
+  FaSearch,
+  FaQuestionCircle,
+  FaCog,
+  FaTh,
+  FaSignOutAlt,
+} from "react-icons/fa";
+import Swal from "sweetalert2";
 import "./stylesComponents.css";
+import { getAuth, signOut } from "firebase/auth";
 
 function FisioNavbar() {
+  const navigate = useNavigate();
+  const auth = getAuth();
+
+  const handleLogout = async () => {
+    const result = await Swal.fire({
+      title: "¿Cerrar sesión?",
+      text: "Tu sesión actual se cerrará.",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Sí, salir",
+      cancelButtonText: "Cancelar",
+      background: "#f9f9f9",
+    });
+
+    if (result.isConfirmed) {
+      try {
+        await signOut(auth);
+        Swal.fire({
+          icon: "success",
+          title: "Sesión cerrada",
+          text: "Has cerrado sesión correctamente.",
+          timer: 1800,
+          showConfirmButton: false,
+        });
+        navigate("/"); // Redirige al login o página principal
+      } catch (error) {
+        console.error("Error al cerrar sesión:", error);
+        Swal.fire({
+          icon: "error",
+          title: "Error",
+          text: "No se pudo cerrar sesión. Intenta nuevamente.",
+        });
+      }
+    }
+  };
+
   return (
     <Navbar
       variant="dark"
@@ -83,6 +130,15 @@ function FisioNavbar() {
             height="42"
             className="ms-2 avatar-custom"
           />
+
+          {/* 🔹 Icono de cerrar sesión con confirmación */}
+          <Nav.Link
+            onClick={handleLogout}
+            className="nav-logout-icon"
+            title="Cerrar sesión"
+          >
+            <FaSignOutAlt size={20} />
+          </Nav.Link>
         </Nav>
       </Container>
     </Navbar>
