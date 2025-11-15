@@ -1,8 +1,8 @@
 import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
-import { getAuth, GoogleAuthProvider, GithubAuthProvider, signOut} from "firebase/auth";
+import { getAuth, GoogleAuthProvider, GithubAuthProvider, signOut } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 
+// Configuración de Firebase
 const firebaseConfig = {
   apiKey: "AIzaSyC15NN5dd5O-f_qI7HS3dVbLKDUrb8bucs",
   authDomain: "ejem-clases.firebaseapp.com",
@@ -13,14 +13,16 @@ const firebaseConfig = {
   measurementId: "G-YME93T0GBC"
 };
 
-// Initialize Firebase
+// Inicializar Firebase
 const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
-// Variable para obtener funcionalidad de autenticación
+
+// Auth
 const auth = getAuth(app);
 const GoogleProvider = new GoogleAuthProvider();
 const GithubProvider = new GithubAuthProvider();
-// Conexión a db
+
+// Firestore
 const db = getFirestore(app);
-// Exportar variables para consumo del proyecto 
-export{ auth, GoogleProvider,  db, GithubProvider, signOut };
+
+// Exportar para toda la app
+export { app, auth, GoogleProvider, GithubProvider, db, signOut };
