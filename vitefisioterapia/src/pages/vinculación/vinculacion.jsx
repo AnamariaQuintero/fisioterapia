@@ -6,6 +6,7 @@ import {
   vincularGithub
 } from "../../authMethods";
 import "./vinculacion.css";
+import { Link } from "react-router-dom";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -83,6 +84,11 @@ export default function Login() {
         <button className="auth-btn btn-github" onClick={handleVincularGithub}>
           Vincular GitHub
         </button>
+
+        <div className="vincular-wrapper">
+          <Link to="/" className="vincular-link">Ir al login</Link>
+        </div>
+
       </div>
 
   );
