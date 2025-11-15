@@ -537,13 +537,8 @@ function LoginPage() {
                     Remember me
                   </label>
                 </div>
-                <a
-                  href="#"
-                  className="forgot-link"
-                  onClick={(e) => e.preventDefault()}
-                >
-                  Forgot password?
-                </a>
+                
+                <Link to="/ForgotPassword" className="vincular-link">Forgot password?</Link>
               </div>
 
               <button
