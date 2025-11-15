@@ -6,6 +6,7 @@ function DashboardPage() {
   return (
     <div className="container justify-content-center align-center vh-100">
       <NavbarPage/>
+        
       <FooterPage/>
     </div>
   );
