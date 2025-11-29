@@ -14,6 +14,8 @@ import CitaPage from './pages/citas/citaview'
 import CreateCita from './pages/citas/citacreate'
 import Login from './pages/vinculación/vinculacion'
 import ListaAuditoria from './pages/components/listAuditoria'
+import CitaExcel from './pages/citas/citaexcel'
+import CitaPdf from './pages/citas/citapdf'
 
 function App() {
 
@@ -35,6 +37,10 @@ function App() {
           <Route path='/EditarUsuario/:id' element={<ProtectedRoute><EditarUsuario/></ProtectedRoute>}></Route>
           <Route path='/CitaPage' element={<ProtectedRoute><CitaPage/></ProtectedRoute>}></Route>
           <Route path='/CreateCita' element={<ProtectedRoute><CreateCita/></ProtectedRoute>}></Route>
+
+          <Route path='/CitaExcel' element={<ProtectedRoute><CitaExcel/></ProtectedRoute>}></Route>
+          <Route path='/CitaPdf' element={<ProtectedRoute><CitaPdf/></ProtectedRoute>}></Route>
+
           <Route path='/ListaAuditoria' element={<ProtectedRoute><ListaAuditoria/></ProtectedRoute>}></Route>
         </Routes>
       </BrowserRouter>
