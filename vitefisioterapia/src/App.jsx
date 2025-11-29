@@ -1,9 +1,11 @@
+
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import './App.css'
 import LoginPage from './pages/loginPage/loginPage'
 import RegisterPage from './pages/registerPage/registerPage'
 import ResetPassword from './pages/resetPasswordPage/resetPassword'
 import ForgotPassword from './pages/resetPasswordPage/forgotPassword'
+import ProtectedRoute from './pages/components/protectedRoute'
 import DashboardPage from './pages/dashboardPage/dashboardPage'
 import LeerUsuario from './pages/usuarios/leerUsuario'
 import CrearUsuario from './pages/usuarios/crearUsuario'
@@ -19,19 +21,21 @@ function App() {
     <>
       <BrowserRouter>
         <Routes>
-          {/* Vista Principal */}
+          {/* Rutas publicas */}
           <Route path='/' element={<LoginPage/>}></Route>
           <Route path='/RegisterPage' element={<RegisterPage/>}></Route>
           <Route path='/ResetPassword' element={<ResetPassword/>}></Route>
           <Route path='/ForgotPassword' element={<ForgotPassword/>}></Route>
-          <Route path='/DashboardPage' element={<DashboardPage/>}></Route>
-          <Route path='/LeerUsuario' element={<LeerUsuario/>}></Route>
-          <Route path='/CrearUsuario' element={<CrearUsuario/>}></Route>
-          <Route path='/EditarUsuario/:id' element={<EditarUsuario/>}></Route>
-          <Route path='/CitaPage' element={<CitaPage/>}></Route>
-          <Route path='/CreateCita' element={<CreateCita/>}></Route>
           <Route path='/Login' element={<Login/>}></Route>
-          <Route path='/ListaAuditoria' element={<ListaAuditoria/>}></Route>
+
+          {/* Rutas protegidas */}
+          <Route path='/DashboardPage' element={<ProtectedRoute><DashboardPage/></ProtectedRoute>}></Route>
+          <Route path='/LeerUsuario' element={<ProtectedRoute><LeerUsuario/></ProtectedRoute>}></Route>
+          <Route path='/CrearUsuario' element={<ProtectedRoute><CrearUsuario/></ProtectedRoute>}></Route>
+          <Route path='/EditarUsuario/:id' element={<ProtectedRoute><EditarUsuario/></ProtectedRoute>}></Route>
+          <Route path='/CitaPage' element={<ProtectedRoute><CitaPage/></ProtectedRoute>}></Route>
+          <Route path='/CreateCita' element={<ProtectedRoute><CreateCita/></ProtectedRoute>}></Route>
+          <Route path='/ListaAuditoria' element={<ProtectedRoute><ListaAuditoria/></ProtectedRoute>}></Route>
         </Routes>
       </BrowserRouter>
     </>
