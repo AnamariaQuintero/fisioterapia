@@ -262,15 +262,17 @@ function ReadView() {
           <div className="card shadow-sm border-0 h-100 d-flex flex-column">
             <div className="card-header bg-white border-0 py-4 px-4 d-flex justify-content-between align-items-center">
               <h2 className="mb-0 fw-bold text-dark">Lista de Citas</h2>
-              <Link to="/CitaPdf" className="btn btn-danger px-4 py-2 fw-semibold">
-                + PDF 
-              </Link>
-              <Link to="/CitaExcel" className="btn btn-success px-4 py-2 fw-semibold">
-                + Excel
-              </Link>
-              <Link to="/CreateCita" className="btn btn-primary px-4 py-2 fw-semibold">
-                + Nueva Cita
-              </Link>
+              <div className="d-flex justify-content-between">
+                  <Link
+                    to="/CitaPdf" className="btn btn-danger px-4 py-2 fw-semibold me-2"> + PDF
+                  </Link>
+                  <Link
+                    to="/CitaExcel" className="btn btn-success px-4 py-2 fw-semibold me-2"> + EXCEL
+                  </Link>
+                  <Link
+                    to="/CreateCita" className="btn btn-primary px-4 py-2 fw-semibold me-2"> + Nuevo registro
+                  </Link>
+                </div>
             </div>
 
             <div className="card-body p-0 flex-grow-1 overflow-auto">
