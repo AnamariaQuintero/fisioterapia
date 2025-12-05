@@ -6,14 +6,10 @@ import {
   Nav,
   Container,
   Dropdown,
-  InputGroup,
-  FormControl,
   Image,
-  Button,
 } from "react-bootstrap";
 import {
   FaBars,
-  FaSearch,
   FaQuestionCircle,
   FaCog,
   FaTh,
@@ -58,36 +54,30 @@ function FisioNavbar() {
     if (!result.isConfirmed) return;
 
     try {
-      // 🔸 Recuperar datos guardados durante el login
       const loginDocId = localStorage.getItem("currentLoginHistoryId");
       const sessionStartMs = Number(localStorage.getItem("sessionStartMs"));
 
       if (loginDocId && !Number.isNaN(sessionStartMs)) {
         const now = new Date();
-
-        // 🔹 Datos de logout
         const logoutAtMs = now.getTime();
         const logoutTime = formatHora(now);
 
-        // 🔹 Diferencia en minutos
         const diffMs = logoutAtMs - sessionStartMs;
         const sessionDurationMinutes =
-          Math.round((diffMs / 60000) * 100) / 100; // 2 decimales
+          Math.round((diffMs / 60000) * 100) / 100;
 
         const historyRef = doc(db, "login_history", loginDocId);
 
         await updateDoc(historyRef, {
-          logoutTime,                 // "HH:mm:ss"
-          logoutAtMs,                 // timestamp de salida
-          sessionDurationMinutes,     // duración en minutos
+          logoutTime,
+          logoutAtMs,
+          sessionDurationMinutes,
         });
 
-        // 🔹 Limpiar storage
         localStorage.removeItem("currentLoginHistoryId");
         localStorage.removeItem("sessionStartMs");
       }
 
-      // Cerrar sesión en Firebase
       await signOut(auth);
 
       Swal.fire({
@@ -98,7 +88,7 @@ function FisioNavbar() {
         showConfirmButton: false,
       });
 
-      navigate("/"); // Redirige al login
+      navigate("/");
     } catch (error) {
       console.error("Error al cerrar sesión:", error);
       Swal.fire({
@@ -116,8 +106,8 @@ function FisioNavbar() {
       fixed="top"
       className="navbar-custom shadow-lg"
     >
-      <Container fluid className="px-4 d-flex justify-content-between align-items-center">
-        
+      <Container fluid className="px-3 d-flex justify-content-between align-items-center">
+
         {/* Menú Hamburguesa */}
         <Dropdown align="start">
           <Dropdown.Toggle as="div" className="hamburger-menu">
@@ -139,7 +129,7 @@ function FisioNavbar() {
         {/* Logo + Título */}
         <Navbar.Brand
           href="#"
-          className="ms-3 d-flex align-items-center text-white brand-custom"
+          className="ms-2 d-flex align-items-center text-white brand-custom"
         >
           <img
             src="https://img.icons8.com/color/48/000000/health-checkup.png"
@@ -151,40 +141,10 @@ function FisioNavbar() {
           Fisioterapia
         </Navbar.Brand>
 
-        {/* Buscador */}
-        <InputGroup
-          className="mx-3 search-input-group"
-          style={{ maxWidth: "500px", flex: 1 }}
-        >
-          <FormControl 
-            placeholder="Buscar paciente, cita, usuario..." 
-            className="search-input-custom"
-          />
-          <Button variant="light" className="search-button-custom">
-            <FaSearch />
-          </Button>
-        </InputGroup>
-
-        {/* Iconos y Avatar */}
+        {/* Iconos */}
         <Nav className="d-flex align-items-center gap-2">
-          <Nav.Link href="#" className="nav-icon-custom">
-            <FaQuestionCircle size={20} />
-          </Nav.Link>
-          <Nav.Link href="#" className="nav-icon-custom">
-            <FaCog size={20} />
-          </Nav.Link>
-          <Nav.Link href="#" className="nav-icon-custom">
-            <FaTh size={20} />
-          </Nav.Link>
-          <Image
-            src="https://i.pinimg.com/236x/aa/59/6e/aa596ef27b82423e67fe63206edc57f6.jpg"
-            roundedCircle
-            width="42"
-            height="42"
-            className="ms-2 avatar-custom"
-          />
-
-          {/* 🔹 Botón de Logout */}
+          
+          {/* Logout */}
           <Nav.Link
             onClick={handleLogout}
             className="nav-logout-icon"
