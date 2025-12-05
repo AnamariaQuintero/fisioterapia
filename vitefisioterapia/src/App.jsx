@@ -14,6 +14,12 @@ import CitaPage from './pages/citas/citaview'
 import CreateCita from './pages/citas/citacreate'
 import Login from './pages/vinculación/vinculacion'
 import ListaAuditoria from './pages/components/listAuditoria'
+import CitaExcel from './pages/citas/citaexcel'
+import CitaPdf from './pages/citas/citapdf'
+
+// Rutas para los reportes de los usuarios 
+import ReporteUsuariosPDF from './pages/components/reporteUsuariosPDF'
+import ReporteUsuariosEXCEL from './pages/components/reporteUsuariosEXCEL'
 
 function App() {
 
@@ -35,7 +41,16 @@ function App() {
           <Route path='/EditarUsuario/:id' element={<ProtectedRoute><EditarUsuario/></ProtectedRoute>}></Route>
           <Route path='/CitaPage' element={<ProtectedRoute><CitaPage/></ProtectedRoute>}></Route>
           <Route path='/CreateCita' element={<ProtectedRoute><CreateCita/></ProtectedRoute>}></Route>
+
+          <Route path='/CitaExcel' element={<ProtectedRoute><CitaExcel/></ProtectedRoute>}></Route>
+          <Route path='/CitaPdf' element={<ProtectedRoute><CitaPdf/></ProtectedRoute>}></Route>
+
           <Route path='/ListaAuditoria' element={<ProtectedRoute><ListaAuditoria/></ProtectedRoute>}></Route>
+
+          {/* Rutas para exportar datos de los usuarios */}
+          <Route path='/ReporteUsuariosPDF' element={<ProtectedRoute><ReporteUsuariosPDF /></ProtectedRoute>}></Route>
+          <Route path='/ReporteUsuariosEXCEL' element={<ProtectedRoute><ReporteUsuariosEXCEL /></ProtectedRoute>}></Route>
+
         </Routes>
       </BrowserRouter>
     </>
