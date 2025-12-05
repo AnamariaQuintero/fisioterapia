@@ -237,3 +237,166 @@ footer a:hover {
 .card:hover {
   box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1) !important;
 }
+
+/* Evitar gaps horizontales globales */
+html, body {
+  overflow-x: hidden;
+}
+
+/* Wrapper para la tabla: permite scroll horizontal solo cuando sea necesario */
+.table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Evitar que celdas rompan el layout; mostrar ... si texto muy largo */
+.usuarios-table {
+  width: 100%;
+  table-layout: auto; /* deja que las columnas se adapten */
+  border-collapse: collapse;
+  word-break: break-word;
+}
+
+/* limitar longitud visual con ellipsis */
+.usuarios-table td.ellipsis {
+  max-width: 180px; /* puedes ajustar */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Mobile: mostrar cada fila como tarjeta */
+@media (max-width: 768px) {
+  .usuarios-table thead {
+    display: none;
+  }
+
+  .usuarios-table, .usuarios-table tbody, .usuarios-table tr, .usuarios-table td {
+    display: block;
+    width: 100%;
+  }
+
+  .usuarios-table tr {
+    margin-bottom: 12px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+    padding: 12px;
+  }
+
+  .usuarios-table td {
+    padding: 8px 12px;
+    text-align: left;
+    border: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .usuarios-table td::before {
+    content: attr(data-label);
+    font-weight: 600;
+    color: #6b6b6b;
+    margin-right: 10px;
+    flex: 0 0 40%;
+  }
+
+  .usuarios-table td .btn {
+    flex: 0 0 auto;
+  }
+}
+
+/* Ajustes visuales para encabezado fijo */
+.usuarios-table thead th {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  background: #fff;
+}
+
+/* Asegurarse que el contenedor de la card pueda hacer scroll vertical sin expandir horizontal */
+.card-body {
+  overflow: hidden;
+}
+
+/* Pequeño ajuste para acciones en pantallas pequeñas */
+@media (max-width: 480px) {
+  .usuarios-table td::before {
+    font-size: 13px;
+    flex-basis: 50%;
+  }
+  .usuarios-table td {
+    font-size: 14px;
+  }
+}
+
+/* Reduce el tamaño de letra en toda la tabla */
+.small-text {
+  font-size: 0.85rem !important; /* Más pequeño y elegante */
+}
+
+.small-text th {
+  font-size: 0.85rem !important;
+  font-weight: 600;
+}
+
+.small-text td {
+  font-size: 0.8rem !important;
+}
+
+/* Aún más pequeño para botones */
+.small-text .btn-sm {
+  font-size: 0.75rem !important;
+  padding-top: 2px !important;
+  padding-bottom: 2px !important;
+}
+
+/* --- TABLE RESPONSIVE FIX --- */
+.table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 0;
+  margin: 0;
+}
+
+/* --- TABLE RESPONSIVE FIX --- */
+.table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 0;
+  margin: 0;
+}
+
+/* Evita que la tabla desaparezca */
+.usuarios-table {
+  min-width: 900px; 
+  width: max-content;
+}
+
+/* Asegura que el contenedor principal NO colapse */
+.card-body {
+  display: block !important;
+}
+
+/* Mejoras en móvil */
+@media (max-width: 576px) {
+  .usuarios-table {
+    font-size: 12px !important;
+  }
+  .usuarios-table th,
+  .usuarios-table td {
+    padding: 8px !important;
+  }
+}
+
